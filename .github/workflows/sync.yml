@@ -15,6 +15,5 @@ jobs:
         - name: Notion Documentation Sync
           uses: imnotjames/notion-docs-sync@latest
           with:
-            docs_path: ./docs/*
             notion_url: ${{ secrets.NOTION_URL }}
             notion_token: ${{ secrets.NOTION_TOKEN }}
