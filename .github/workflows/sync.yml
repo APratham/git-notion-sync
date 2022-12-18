@@ -3,7 +3,7 @@ name: Sync .md files between Notion and GitHub repo
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:
@@ -15,6 +15,6 @@ jobs:
         - name: Notion Documentation Sync
           uses: imnotjames/notion-docs-sync@latest
           with:
-            docs_path: ./docs/*
+            docs_path: ./docs/
             notion_url: ${{ secrets.NOTION_URL }}
             notion_token: ${{ secrets.NOTION_TOKEN }}
