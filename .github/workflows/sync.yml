@@ -1,20 +1,30 @@
 name: Sync .md files between Notion and GitHub repo
 
+name: Notion2Github
 on:
+  pull_request:
   push:
     branches:
       - main
-
 jobs:
-  release:
-    timeout-minutes: 10
+  auto-sync-from-notion-to-github:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        - name: Notion Documentation Sync
-          uses: imnotjames/notion-docs-sync@latest
-          with:
-            docs_path: ./docs/
-            notion_url: ${{ secrets.NOTION_URL }}
-            notion_token: ${{ secrets.NOTION_TOKEN }}
+      - name: Notion2Github
+        uses: younho9/notion2github@v1.1.0
+        with:
+          database-url: 'https://www.notion.so/9196715ef6d0460fa6b42231ef3511d4'
+          docs-directory: docs
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+
+      - name: Format documents
+        uses: creyD/prettier_action@v3.1
+        with:
+          prettier_options: --write ./docs/**/*.md
+          commit_message: 'docs: Update docs (auto)'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
