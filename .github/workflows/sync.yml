@@ -1,7 +1,5 @@
 name: Sync .md files between Notion and GitHub repo
 
-name: Notion2Github
-uses: narkdown/notion2github@v1.1.1
 on:
   pull_request:
   push:
